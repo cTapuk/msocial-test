@@ -11,10 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'IndexController@index');
+
+Route::group(['middleware' => 'web', 'prefix' => config('backpack.base.route_prefix')], function () {
+    Route::auth();
+    Route::get('logout', 'Auth\LoginController@logout');
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

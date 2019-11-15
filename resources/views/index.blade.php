@@ -3,21 +3,28 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+        <h3>Наши зарегистрированые пользователи</h3>
+    </div>
+    
+    <div class="row justify-content-center">
+        @guest
+            <a href="{{route('register')}}" class="btn btn-primary">Присоединяйтесь</a>
+        @endguest
+    </div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+    <div class="row justify-content-center">
+        
+            @foreach ($users as $user)
+                @if(!($loop->index % 4))
+                    @if(!$loop->first)
                         </div>
                     @endif
+                    <div class="card-deck mt-4">                        
+                @endif
 
-                    You are logged in!
-                </div>
-            </div>
-        </div>
+                @include('card')
+
+            @endforeach
     </div>
 </div>
 @endsection
